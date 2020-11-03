@@ -28,7 +28,7 @@ Or install it yourself as:
 ## Usage
 
     require 'zway'
-    Zway.api_base = "http://192.168.201.180:8083"
+    Zway.api_base = "http://192.168.0.123:8083"
     Zway.session_id = "bae87991-..."
     client = Zway::Client.new
     devices = client.devices
