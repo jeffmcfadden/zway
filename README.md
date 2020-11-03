@@ -1,8 +1,13 @@
 # Zway
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/zway`. To experiment with that code, run `bin/console` for an interactive prompt.
+Ruby gem for interfacing with the ZWay home automation API.
 
-TODO: Delete this and the text above, and describe your gem
+[ZWay API Docs](https://zwayhomeautomation.docs.apiary.io/#reference/devices/devices-commands/send-command-to-device)
+
+## Related Information
+
+* [ZWay Home Automation at Github](https://github.com/Z-Wave-Me/home-automation)
+* [Hardware, Apps, etc](https://z-wave.me)
 
 ## Installation
 
@@ -22,7 +27,14 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    require 'zway'
+    Zway.api_base = "http://192.168.201.180:8083"
+    Zway.session_id = "bae87991-..."
+    client = Zway::Client.new
+    devices = client.devices
+    device = devices.select{ |d| d.id == [your_device_id] }.first # Ex: ZWayVDev_zway_32-0-37
+    client.send_command(device, 'on')
+    client.send_command(device, 'off')
 
 ## Development
 
@@ -40,4 +52,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the Zway project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/zway/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the Zway project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/jeffmcfadden/zway/blob/master/CODE_OF_CONDUCT.md).
