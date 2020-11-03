@@ -3,7 +3,9 @@ require "logger"
 require "net/http"
 require "forwardable"
 
+require "zway/zway_object"
 require "zway/client"
+require "zway/device"
 require "zway/version"
 require "zway/zway_configuration"
 

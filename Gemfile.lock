@@ -11,7 +11,7 @@ GEM
     irb (1.2.7)
       reline (>= 0.1.5)
     rake (10.5.0)
-    reline (0.1.7)
+    reline (0.1.6)
       io-console (~> 0.5)
     rspec (3.9.0)
       rspec-core (~> 3.9.0)
@@ -34,6 +34,7 @@ DEPENDENCIES
   bundler (~> 1.17)
   irb
   rake (~> 10.0)
+  reline (= 0.1.6)
   rspec (~> 3.0)
   zway!
 
