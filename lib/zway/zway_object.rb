@@ -28,9 +28,9 @@ module Zway
     def self.from_hash(h)
       o = self.new
       
-      h.keys.each do |k|    
-        if self.attributes.include? k.to_sym
-           o.send("#{k}=".to_sym, h[k])
+      h.keys.each do |k|
+        if self.attributes.include? k.to_s.underscore.to_sym
+           o.send("#{k.to_s.underscore}=".to_sym, h[k])
         end
       end
       

@@ -8,7 +8,7 @@ module Zway
       api_base   ||= Zway.api_base
       session_id ||= Zway.session_id
        
-      uri = URI( "#{api_base}/ZAutomation/api/v1/devices")
+      uri = URI( "#{api_base}/ZAutomation/api/v1/devices?since=#{since.to_i}")
       req = Net::HTTP::Get.new(uri)
       req['Cookie']="ZWAYSession=#{session_id}"
       res = Net::HTTP.start(uri.hostname, uri.port) do |http|
