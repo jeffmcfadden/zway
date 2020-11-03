@@ -14,7 +14,7 @@ Ruby gem for interfacing with the ZWay home automation API.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'zway'
+gem 'zway', github: 'jeffmcfadden/zway' #Not yet on rubygems.
 ```
 
 And then execute:
