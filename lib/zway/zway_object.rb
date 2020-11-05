@@ -2,13 +2,14 @@ module Zway
   
   class ZwayObject
     @@attributes = []
+    @@additional_attributes = []
     
     def initialize
       @@attributes.each do |attr|
         self.class.send(:define_method, "#{attr}=".to_sym) do |value|
           instance_variable_set("@" + attr.to_s, value)
         end
-  
+    
         self.class.send(:define_method, attr.to_sym) do
           instance_variable_get("@" + attr.to_s)
         end
@@ -17,6 +18,10 @@ module Zway
     
     def self.attributes
       @@attributes
+    end
+    
+    def self.additional_attributes
+      @@additional_attributes
     end
     
     def self.from_json(json)
@@ -29,7 +34,7 @@ module Zway
       o = self.new
       
       h.keys.each do |k|
-        if self.attributes.include? k.to_s.underscore.to_sym
+        if (self.attributes.include? k.to_s.underscore.to_sym) || (self.additional_attributes.include? k.to_s.underscore.to_sym)
            o.send("#{k.to_s.underscore}=".to_sym, h[k])
         end
       end

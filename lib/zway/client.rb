@@ -2,9 +2,13 @@ module Zway
   class Client
      
      def initialize
+       @devices = []
+       @devices_last_updated = 0
      end
      
-     def devices(since = 0)
+     def update_devices(since = nil)
+      since = @devices_last_updated if since.nil?
+       
       api_base   ||= Zway.api_base
       session_id ||= Zway.session_id
        
@@ -18,18 +22,26 @@ module Zway
       json = res.body
       
       devices_array = JSON.parse(json)["data"]["devices"]
+      new_devices = devices_array.collect{ |d| Device.from_hash(d) }
       
-      devices = devices_array.collect{ |d| Device.from_hash(d) }
+      @devices = (new_devices + @devices)
+      @devices.uniq!{ |d| d.id }
+      
+      @devices_last_updated = Time.now.to_i
+      @devices
      end
      
+     def devices
+       @devices
+     end
      
-     def send_command(device, command, params = [])
+     def send_command(device, command, params = {})
       api_base   ||= Zway.api_base
       session_id ||= Zway.session_id
        
       url_string = "#{api_base}/ZAutomation/api/v1/devices/#{device.id}/command/#{command}"
       
-      url_string += params.map{ |k,v| "#{k}=#{v}" } if params.size > 0
+      url_string += "?" + params.map{ |k,v| "#{k}=#{v}" }.join("&") if params.keys.size > 0
        
       uri = URI( url_string )
       req = Net::HTTP::Get.new(uri)
